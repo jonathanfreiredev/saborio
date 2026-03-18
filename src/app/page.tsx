@@ -1,103 +1,137 @@
-import { headers } from "next/headers";
-import Link from "next/link";
-import { redirect } from "next/navigation";
+import Image from "next/image";
+import { CarouselMainCategory } from "~/components/home/carousel-main-category";
+import { CategoriesNavbar } from "~/components/home/categories-navbar";
+import { Button } from "~/components/ui/button";
 
-import { LatestPost } from "~/app/_components/post";
-import { auth } from "~/server/better-auth";
-import { getSession } from "~/server/better-auth/server";
-import { api, HydrateClient } from "~/trpc/server";
+interface HomeProps {
+  searchParams?: Promise<{
+    [key: string]: string | string[] | undefined;
+  }>;
+}
 
-export default async function Home() {
-  const hello = await api.post.hello({ text: "from tRPC" });
-  const session = await getSession();
-
-  if (session) {
-    void api.post.getLatest.prefetch();
-  }
-
+export default async function Home({ searchParams }: HomeProps) {
   return (
-    <HydrateClient>
-      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-        <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
-          <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
-            Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
-          </h1>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
-            <Link
-              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 hover:bg-white/20"
-              href="https://create.t3.gg/en/usage/first-steps"
-              target="_blank"
-            >
-              <h3 className="text-2xl font-bold">First Steps →</h3>
-              <div className="text-lg">
-                Just the basics - Everything you need to know to set up your
-                database and authentication.
-              </div>
-            </Link>
-            <Link
-              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 hover:bg-white/20"
-              href="https://create.t3.gg/en/introduction"
-              target="_blank"
-            >
-              <h3 className="text-2xl font-bold">Documentation →</h3>
-              <div className="text-lg">
-                Learn more about Create T3 App, the libraries it uses, and how
-                to deploy it.
-              </div>
-            </Link>
-          </div>
-          <div className="flex flex-col items-center gap-2">
-            <p className="text-2xl text-white">
-              {hello ? hello.greeting : "Loading tRPC query..."}
-            </p>
+    <main className="">
+      <CategoriesNavbar />
+      <div className="flex flex-col gap-5">
+        <div className="relative flex h-[calc(100vh-12rem)] w-full items-center justify-center gap-4 px-10 py-16">
+          <Image
+            src="/images/lime-and-green-leaves.webp"
+            alt="Lime and green leaves"
+            fill
+            className="absolute -z-10 object-cover"
+          />
 
-            <div className="flex flex-col items-center justify-center gap-4">
-              <p className="text-center text-2xl text-white">
-                {session && <span>Logged in as {session.user?.name}</span>}
+          <div className="flex h-full w-full flex-col text-gray-800 lg:flex-row">
+            <div className="flex flex-1 flex-col gap-4 px-2">
+              <h2 className="text-center text-5xl sm:text-7xl lg:text-left">
+                Mains
+              </h2>
+              <p className="text-center lg:text-left">
+                It begins with Greek Yogurt. Triple strained to be thick and
+                creamy. Made the old-world way, locally sourced and
+                authentically crafted. Perfect for small-spoon eating or
+                big-spoon cooking.
               </p>
-              {!session ? (
-                <form>
-                  <button
-                    className="rounded-full bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-white/20"
-                    formAction={async () => {
-                      "use server";
-                      const res = await auth.api.signInSocial({
-                        body: {
-                          provider: "github",
-                          callbackURL: "/",
-                        },
-                      });
-                      if (!res.url) {
-                        throw new Error("No URL returned from signInSocial");
-                      }
-                      redirect(res.url);
-                    }}
-                  >
-                    Sign in with Github
-                  </button>
-                </form>
-              ) : (
-                <form>
-                  <button
-                    className="rounded-full bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-white/20"
-                    formAction={async () => {
-                      "use server";
-                      await auth.api.signOut({
-                        headers: await headers(),
-                      });
-                      redirect("/");
-                    }}
-                  >
-                    Sign out
-                  </button>
-                </form>
-              )}
+
+              <div>
+                <Button
+                  variant="default"
+                  size="lg"
+                  className="hover:opacity-80"
+                >
+                  View recipes
+                </Button>
+              </div>
+            </div>
+
+            <div className="flex h-full flex-1 justify-center lg:flex-2 lg:justify-end">
+              <CarouselMainCategory />
             </div>
           </div>
-
-          {session?.user && <LatestPost />}
         </div>
-      </main>
-    </HydrateClient>
+
+        <div className="relative flex h-[calc(100vh-12rem)] w-full flex-col gap-5 lg:flex-row">
+          <div className="relative flex-1">
+            <Image
+              src="/images/aperol-drink.webp"
+              alt="Aperol drink"
+              fill
+              className="absolute -z-10 object-cover"
+            />
+
+            <div className="flex flex-col gap-5 p-5 text-white sm:p-15">
+              <h2 className="text-center text-5xl sm:text-7xl lg:text-left">
+                Drinks
+              </h2>
+              <p className="text-center lg:text-left">
+                It begins with Greek Yogurt. Triple strained to be thick and
+                creamy. Made the old-world way, locally sourced and
+                authentically crafted. Perfect for small-spoon eating or
+                big-spoon cooking.
+              </p>
+
+              <div>
+                <Button variant="secondary" size="lg">
+                  View recipes
+                </Button>
+              </div>
+            </div>
+          </div>
+          <div className="relative flex flex-1">
+            <Image
+              src="/images/macarons.webp"
+              alt="Macarons"
+              fill
+              className="absolute -z-10 object-cover"
+            />
+
+            <div className="flex flex-col gap-5 p-5 text-white sm:p-15">
+              <h2 className="text-center text-5xl sm:text-7xl lg:text-left">
+                Desserts
+              </h2>
+              <p className="text-center lg:text-left">
+                It begins with Greek Yogurt. Triple strained to be thick and
+                creamy. Made the old-world way, locally sourced and
+                authentically crafted. Perfect for small-spoon eating or
+                big-spoon cooking.
+              </p>
+
+              <div>
+                <Button variant="secondary" size="lg">
+                  View recipes
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="relative h-[calc(100vh-12rem)] w-full">
+          <Image
+            src="/images/aperol-drink.webp"
+            alt="Aperol drink"
+            fill
+            className="absolute -z-10 object-cover"
+          />
+
+          <div className="flex flex-col gap-5 p-5 text-gray-800 sm:p-15 lg:w-[40%]">
+            <h2 className="text-center text-5xl sm:text-7xl lg:text-left">
+              Sides
+            </h2>
+            <p className="text-center lg:text-left">
+              It begins with Greek Yogurt. Triple strained to be thick and
+              creamy. Made the old-world way, locally sourced and authentically
+              crafted. Perfect for small-spoon eating or big-spoon cooking.
+            </p>
+
+            <div>
+              <Button variant="default" size="lg" className="hover:opacity-80">
+                View recipes
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
   );
 }

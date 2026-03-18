@@ -1,0 +1,50 @@
+"use client";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+} from "../ui/carousel";
+import Image from "next/image";
+
+const mains = [
+  { name: "Bibimbap", image: "/images/bibimbap.webp" },
+  {
+    name: "burger",
+    image: "/images/burger.webp",
+  },
+  {
+    name: "pizza-quattro-formaggi",
+    image: "/images/pizza-quattro-formaggi.webp",
+  },
+  {
+    name: "salmon-fillet-roasted",
+    image: "/images/salmon-fillet-roasted.webp",
+  },
+];
+
+export function CarouselMainCategory() {
+  return (
+    <Carousel className="h-full w-full">
+      <CarouselContent className="-ml-1 h-full">
+        {mains.map((dish, index) => (
+          <CarouselItem key={index} className="h-full basis-1/2 sm:basis-1/3">
+            <div className="relative box-border flex h-full items-center justify-center shadow-xl">
+              <Image
+                src={dish.image}
+                alt={dish.name}
+                fill
+                className="rounded-sm object-cover"
+              />
+            </div>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      <CarouselNext
+        variant="secondary"
+        size="icon-lg"
+        className="right-0 z-30"
+      />
+    </Carousel>
+  );
+}
