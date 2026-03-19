@@ -2,17 +2,12 @@ import Image from "next/image";
 import { CarouselMainCategory } from "~/components/home/carousel-main-category";
 import { CategoriesNavbar } from "~/components/home/categories-navbar";
 import { Button } from "~/components/ui/button";
+import { categories } from "~/lib/categories-list";
 
-interface HomeProps {
-  searchParams?: Promise<{
-    [key: string]: string | string[] | undefined;
-  }>;
-}
-
-export default async function Home({ searchParams }: HomeProps) {
+export default async function Home() {
   return (
     <main className="">
-      <CategoriesNavbar />
+      <CategoriesNavbar currentCategory="explore" />
       <div className="flex flex-col gap-5">
         <div className="relative flex h-[calc(100vh-12rem)] w-full items-center justify-center gap-4 px-10 py-16">
           <Image
@@ -23,18 +18,15 @@ export default async function Home({ searchParams }: HomeProps) {
           />
 
           <div className="flex h-full w-full flex-col text-gray-800 lg:flex-row">
-            <div className="flex flex-1 flex-col gap-4 px-2">
+            <div className="flex flex-1 flex-col items-center gap-4 px-2 lg:items-start">
               <h2 className="text-center text-5xl sm:text-7xl lg:text-left">
                 Mains
               </h2>
-              <p className="text-center lg:text-left">
-                It begins with Greek Yogurt. Triple strained to be thick and
-                creamy. Made the old-world way, locally sourced and
-                authentically crafted. Perfect for small-spoon eating or
-                big-spoon cooking.
+              <p className="max-w-125 text-center lg:text-left">
+                {categories[1]?.description}
               </p>
 
-              <div>
+              <div className="flex justify-center lg:justify-start">
                 <Button
                   variant="default"
                   size="lg"
@@ -60,18 +52,15 @@ export default async function Home({ searchParams }: HomeProps) {
               className="absolute -z-10 object-cover"
             />
 
-            <div className="flex flex-col gap-5 p-5 text-white sm:p-15">
+            <div className="flex flex-col items-center gap-5 p-5 text-white sm:p-15 lg:items-start">
               <h2 className="text-center text-5xl sm:text-7xl lg:text-left">
                 Drinks
               </h2>
-              <p className="text-center lg:text-left">
-                It begins with Greek Yogurt. Triple strained to be thick and
-                creamy. Made the old-world way, locally sourced and
-                authentically crafted. Perfect for small-spoon eating or
-                big-spoon cooking.
+              <p className="max-w-125 text-center lg:text-left">
+                {categories[3]?.description}
               </p>
 
-              <div>
+              <div className="flex justify-center lg:justify-start">
                 <Button variant="secondary" size="lg">
                   View recipes
                 </Button>
@@ -86,18 +75,15 @@ export default async function Home({ searchParams }: HomeProps) {
               className="absolute -z-10 object-cover"
             />
 
-            <div className="flex flex-col gap-5 p-5 text-white sm:p-15">
+            <div className="flex w-full flex-col items-center gap-5 p-5 text-white sm:p-15 lg:items-start">
               <h2 className="text-center text-5xl sm:text-7xl lg:text-left">
                 Desserts
               </h2>
-              <p className="text-center lg:text-left">
-                It begins with Greek Yogurt. Triple strained to be thick and
-                creamy. Made the old-world way, locally sourced and
-                authentically crafted. Perfect for small-spoon eating or
-                big-spoon cooking.
+              <p className="max-w-125 text-center lg:text-left">
+                {categories[2]?.description}
               </p>
 
-              <div>
+              <div className="flex justify-center lg:justify-start">
                 <Button variant="secondary" size="lg">
                   View recipes
                 </Button>
@@ -108,24 +94,22 @@ export default async function Home({ searchParams }: HomeProps) {
 
         <div className="relative h-[calc(100vh-12rem)] w-full">
           <Image
-            src="/images/aperol-drink.webp"
-            alt="Aperol drink"
+            src="/images/baked-tuna-pasta.webp"
+            alt="Baked tuna pasta"
             fill
             className="absolute -z-10 object-cover"
           />
 
-          <div className="flex flex-col gap-5 p-5 text-gray-800 sm:p-15 lg:w-[40%]">
+          <div className="flex flex-col items-center gap-5 p-5 text-white sm:p-15 lg:items-start">
             <h2 className="text-center text-5xl sm:text-7xl lg:text-left">
               Sides
             </h2>
-            <p className="text-center lg:text-left">
-              It begins with Greek Yogurt. Triple strained to be thick and
-              creamy. Made the old-world way, locally sourced and authentically
-              crafted. Perfect for small-spoon eating or big-spoon cooking.
+            <p className="max-w-125 text-center lg:text-left">
+              {categories[4]?.description}
             </p>
 
-            <div>
-              <Button variant="default" size="lg" className="hover:opacity-80">
+            <div className="flex justify-center lg:justify-start">
+              <Button variant="secondary" size="lg">
                 View recipes
               </Button>
             </div>

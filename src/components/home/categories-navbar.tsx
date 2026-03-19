@@ -1,23 +1,12 @@
-"use client";
-
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { categories } from "~/lib/categories-list";
+import { capitalize } from "~/lib/utils";
 
-const categories = [
-  { name: "explore", href: "/" },
-  { name: "mains", href: "/?category=mains" },
-  { name: "desserts", href: "/?category=desserts" },
-  { name: "drinks", href: "/?category=drinks" },
-  { name: "sides", href: "/?category=sides" },
-  { name: "everything", href: "/?category=everything" },
-];
+interface CategoriesNavbarProps {
+  currentCategory: string;
+}
 
-const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
-
-export function CategoriesNavbar() {
-  const searchParams = useSearchParams();
-  const currentCategory = searchParams.get("category") ?? "explore";
-
+export function CategoriesNavbar({ currentCategory }: CategoriesNavbarProps) {
   return (
     <div className="h-12 border-b bg-zinc-100 sm:h-20">
       <div className="no-scrollbar flex h-full overflow-x-auto px-2">
