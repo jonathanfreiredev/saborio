@@ -22,7 +22,11 @@ import {
 } from "./ui/drawer";
 import { Item, ItemContent, ItemMedia, ItemTitle } from "./ui/item";
 
-export async function SidebarDrawer() {
+interface SidebarDrawerProps {
+  isLoggedIn: boolean;
+}
+
+export async function SidebarDrawer({ isLoggedIn }: SidebarDrawerProps) {
   return (
     <Drawer direction="right">
       <DrawerTrigger asChild>
@@ -103,7 +107,7 @@ export async function SidebarDrawer() {
               className="cursor-pointer"
               asChild
             >
-              <Link href="/recipes/new">
+              <Link href={isLoggedIn ? "/recipes/new" : "/login"}>
                 <ItemMedia>
                   <PlusIcon className="size-5" />
                 </ItemMedia>

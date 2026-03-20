@@ -2,12 +2,19 @@ import Link from "next/link";
 import { categories } from "~/lib/categories-list";
 import { capitalize } from "~/lib/utils";
 import { Button } from "../ui/button";
+import { getSession } from "~/server/better-auth/server";
 
 interface CategoriesNavbarProps {
   currentCategory: string;
 }
 
-export function CategoriesNavbar({ currentCategory }: CategoriesNavbarProps) {
+export async function CategoriesNavbar({
+  currentCategory,
+}: CategoriesNavbarProps) {
+  const session = await getSession();
+
+  const isLoggedIn = !!session?.session;
+
   return (
     <div className="h-12 border-b bg-zinc-100 sm:h-20 dark:bg-zinc-300">
       <div className="no-scrollbar flex h-full items-center overflow-x-auto px-2">
@@ -30,7 +37,7 @@ export function CategoriesNavbar({ currentCategory }: CategoriesNavbarProps) {
         })}
 
         <Button variant="default" className="ml-auto hidden sm:flex">
-          <Link href="/recipes/new">New Recipe</Link>
+          <Link href={isLoggedIn ? "/recipes/new" : "/login"}>New Recipe</Link>
         </Button>
       </div>
     </div>

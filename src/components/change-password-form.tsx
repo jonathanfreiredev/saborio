@@ -29,12 +29,9 @@ const formSchema = z.object({
 });
 
 export const ChangePasswordForm = ({
-  handleClose,
   className,
   ...props
-}: React.ComponentProps<"div"> & {
-  handleClose?: () => void;
-}) => {
+}: React.ComponentProps<"div">) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -64,7 +61,7 @@ export const ChangePasswordForm = ({
           toast.success("Password changed successfully!", {
             position: "bottom-right",
           });
-          handleClose?.();
+          window.location.reload();
         },
         onError(error) {
           toast.error("Failed to change password!", {

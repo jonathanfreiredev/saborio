@@ -140,6 +140,21 @@ export const LoginForm = ({
             </FieldSet>
 
             <Field>
+              <div className="mb-2 flex justify-end">
+                <Button
+                  variant="link"
+                  onClick={() => {
+                    form.reset();
+                  }}
+                  disabled={form.formState.isSubmitting}
+                  asChild
+                >
+                  <Link href="/forgot-password">Forgot password?</Link>
+                </Button>
+              </div>
+            </Field>
+
+            <Field>
               <Button
                 type="submit"
                 form="form-login"

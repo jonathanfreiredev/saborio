@@ -47,8 +47,6 @@ export const ProfileForm = ({
   className,
   ...props
 }: React.ComponentProps<"div"> & { user: { name: string; email: string } }) => {
-  const [openedChangePassword, setOpenedChangePassword] = useState(false);
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -67,7 +65,6 @@ export const ProfileForm = ({
             newEmail: data.email,
             fetchOptions: {
               onError(error) {
-                console.error(error);
                 if (error.error.message !== "Email is the same") {
                   toast.error("Failed to update email!", {
                     description: error.error.message,
@@ -169,10 +166,7 @@ export const ProfileForm = ({
         </CardContent>
 
         <CardFooter className="flex justify-end">
-          <Dialog
-            open={openedChangePassword}
-            onOpenChange={setOpenedChangePassword}
-          >
+          <Dialog>
             <DialogTrigger asChild>
               <Button variant="link" disabled={form.formState.isSubmitting}>
                 Change password
@@ -186,12 +180,7 @@ export const ProfileForm = ({
                 </DialogDescription>
               </DialogHeader>
 
-              <ChangePasswordForm
-                handleClose={() => {
-                  setOpenedChangePassword(false);
-                  window.location.reload();
-                }}
-              />
+              <ChangePasswordForm />
             </DialogContent>
           </Dialog>
         </CardFooter>

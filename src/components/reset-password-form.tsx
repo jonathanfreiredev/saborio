@@ -22,6 +22,7 @@ import {
   FieldSet,
 } from "./ui/field";
 import { Input } from "./ui/input";
+import { useRouter } from "next/navigation";
 
 const formSchema = z
   .object({
@@ -41,6 +42,7 @@ export const ResetPasswordForm = ({
   className,
   ...props
 }: React.ComponentProps<"div"> & { token: string }) => {
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -50,9 +52,9 @@ export const ResetPasswordForm = ({
   });
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
-    const { confirmPassword, ...resetData } = data;
+    const { confirmPassword, password } = data;
 
-    if (data.password !== data.confirmPassword) {
+    if (password !== confirmPassword) {
       toast.error("Passwords do not match!", {
         description: "Please make sure your passwords match.",
         position: "bottom-right",
@@ -61,13 +63,16 @@ export const ResetPasswordForm = ({
     }
 
     await authClient.resetPassword({
-      newPassword: data.password,
+      newPassword: password,
       token,
       fetchOptions: {
         async onSuccess() {
           toast.success("Password reset successfully!", {
             position: "bottom-right",
           });
+          form.reset();
+          router.replace("/login");
+          router.refresh();
         },
         onError(error) {
           toast.error("Failed to reset password!", {

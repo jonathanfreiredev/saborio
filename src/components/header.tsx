@@ -28,7 +28,7 @@ export async function Header() {
         </div>
 
         <div className="flex items-end gap-2 sm:hidden">
-          <SidebarDrawer />
+          <SidebarDrawer isLoggedIn={isLoggedIn} />
         </div>
       </div>
     </header>

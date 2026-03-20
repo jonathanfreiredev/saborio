@@ -10,8 +10,9 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
     sendResetPassword: async ({ user, url, token }) => {
-      void resend.emails.send({
-        from: "Saborio <admin@saborio.com",
+      console.log({ user, url, token });
+      await resend.emails.send({
+        from: "Saborio <saborio@jonathanfreire.com>",
         to: user.email,
         subject: "Reset your password",
         html: `
