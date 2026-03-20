@@ -9,7 +9,15 @@
 * 🟢 You can import this file directly.
 */
 
+export const Unit = {
+  GRAM: 'GRAM',
+  KILOGRAM: 'KILOGRAM',
+  LITER: 'LITER',
+  MILLILITER: 'MILLILITER',
+  CUP: 'CUP',
+  TABLESPOON: 'TABLESPOON',
+  TEASPOON: 'TEASPOON',
+  UNIT: 'UNIT'
+} as const
 
-
-// This file is empty because there are no enums in the schema.
-export {}
+export type Unit = (typeof Unit)[keyof typeof Unit]

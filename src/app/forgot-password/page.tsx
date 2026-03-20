@@ -20,15 +20,9 @@ export default async function ForgotPasswordPage({
     redirect("/");
   }
 
-  if (!token) {
-    console.log("No token provided for password reset.");
-  }
-
   return (
-    <main className="">
-      <div className="bg-muted flex min-h-svh flex-col items-center justify-center p-6 md:p-10">
-        {token ? <ResetPasswordForm token={token} /> : <ForgotPasswordForm />}
-      </div>
-    </main>
+    <div className="bg-muted flex min-h-svh flex-col items-center justify-center p-6 md:p-10">
+      {token ? <ResetPasswordForm token={token} /> : <ForgotPasswordForm />}
+    </div>
   );
 }

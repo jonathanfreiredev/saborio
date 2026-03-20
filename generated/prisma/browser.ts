@@ -42,3 +42,43 @@ export type Account = Prisma.AccountModel
  * 
  */
 export type Verification = Prisma.VerificationModel
+/**
+ * Model Recipe
+ * 
+ */
+export type Recipe = Prisma.RecipeModel
+/**
+ * Model Ingredient
+ * 
+ */
+export type Ingredient = Prisma.IngredientModel
+/**
+ * Model Step
+ * 
+ */
+export type Step = Prisma.StepModel
+/**
+ * Model Tag
+ * 
+ */
+export type Tag = Prisma.TagModel
+/**
+ * Model RecipeTag
+ * 
+ */
+export type RecipeTag = Prisma.RecipeTagModel
+/**
+ * Model RecipeLike
+ * 
+ */
+export type RecipeLike = Prisma.RecipeLikeModel
+/**
+ * Model Cookbook
+ * 
+ */
+export type Cookbook = Prisma.CookbookModel
+/**
+ * Model CookbookRecipe
+ * 
+ */
+export type CookbookRecipe = Prisma.CookbookRecipeModel

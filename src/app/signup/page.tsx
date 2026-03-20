@@ -12,10 +12,8 @@ export default async function SignupPage() {
   }
 
   return (
-    <main className="">
-      <div className="bg-muted flex min-h-svh flex-col items-center justify-center p-6 md:p-10">
-        <SignupForm />
-      </div>
-    </main>
+    <div className="bg-muted flex min-h-svh flex-col items-center justify-center p-6 md:p-10">
+      <SignupForm />
+    </div>
   );
 }

@@ -27,16 +27,19 @@ model Post {
 }
 
 model User {
-  id            String    @id
+  id            String       @id
   name          String //@db.Text
   email         String
-  emailVerified Boolean   @default(false)
+  emailVerified Boolean      @default(false)
   image         String? //@db.Text
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @default(now()) @updatedAt
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @default(now()) @updatedAt
   sessions      Session[]
   accounts      Account[]
   posts         Post[]
+  recipes       Recipe[]
+  recipeLikes   RecipeLike[]
+  cookbooks     Cookbook[]
 
   @@unique([email])
   @@map("user")
@@ -85,4 +88,146 @@ model Verification {
   updatedAt  DateTime @default(now()) @updatedAt
 
   @@map("verification")
+}
+
+model Recipe {
+  id              String       @id @default(cuid())
+  title           String
+  description     String
+  slug            String       @unique
+  imageUrl        String?
+  ingredients     Ingredient[]
+  defaultServings Int
+  likesCount      Int          @default(0)
+
+  // Time in minutes
+  preparationTime Int
+  cookingTime     Int
+  restingTime     Int
+
+  // Nutritional information per serving
+  calories      Int
+  carbohydrates Int
+  protein       Int
+  fat           Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  steps     Step[]
+  tags      RecipeTag[]
+  likes     RecipeLike[]
+  cookbooks CookbookRecipe[]
+
+  author   User?   @relation(fields: [authorId], references: [id])
+  authorId String?
+
+  @@index([title])
+  @@map("recipe")
+}
+
+enum Unit {
+  GRAM
+  KILOGRAM
+  LITER
+  MILLILITER
+  CUP
+  TABLESPOON
+  TEASPOON
+  UNIT
+}
+
+model Ingredient {
+  id        String   @id @default(cuid())
+  name      String
+  unit      Unit
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  recipe   Recipe @relation(fields: [recipeId], references: [id])
+  recipeId String
+
+  @@index([name])
+  @@map("ingredient")
+}
+
+model Step {
+  id          String   @id @default(cuid())
+  description String
+  order       Int
+  imageUrl    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  recipe   Recipe @relation(fields: [recipeId], references: [id])
+  recipeId String
+
+  @@map("step")
+}
+
+model Tag {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  slug      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  recipes RecipeTag[]
+
+  @@index([name])
+  @@map("tag")
+}
+
+model RecipeTag {
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  recipe   Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  recipeId String
+  tag      Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  tagId    String
+
+  @@id([recipeId, tagId])
+  @@map("recipe_tag")
+}
+
+model RecipeLike {
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user     User   @relation(fields: [userId], references: [id])
+  userId   String
+  recipe   Recipe @relation(fields: [recipeId], references: [id])
+  recipeId String
+
+  @@id([userId, recipeId])
+  @@map("recipe_like")
+}
+
+model Cookbook {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  author   User?   @relation(fields: [authorId], references: [id])
+  authorId String?
+
+  recipes CookbookRecipe[]
+
+  @@index([name])
+  @@map("cookbook")
+}
+
+model CookbookRecipe {
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  cookbook   Cookbook @relation(fields: [cookbookId], references: [id], onDelete: Cascade)
+  cookbookId String
+  recipe     Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  recipeId   String
+
+  @@id([cookbookId, recipeId])
+  @@map("cookbook_recipe")
 }

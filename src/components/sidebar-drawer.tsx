@@ -71,7 +71,7 @@ export async function SidebarDrawer({ isLoggedIn }: SidebarDrawerProps) {
               className="cursor-pointer"
               asChild
             >
-              <Link href="/cookbooks">
+              <Link href={isLoggedIn ? "/cookbooks" : "/login"}>
                 <ItemMedia>
                   <BookIcon className="size-5" />
                 </ItemMedia>
@@ -89,7 +89,7 @@ export async function SidebarDrawer({ isLoggedIn }: SidebarDrawerProps) {
               className="cursor-pointer"
               asChild
             >
-              <Link href="/recipes">
+              <Link href={isLoggedIn ? "/recipes" : "/login"}>
                 <ItemMedia>
                   <NotepadTextIcon className="size-5" />
                 </ItemMedia>
@@ -125,7 +125,7 @@ export async function SidebarDrawer({ isLoggedIn }: SidebarDrawerProps) {
               className="cursor-pointer"
               asChild
             >
-              <Link href="/profile">
+              <Link href={isLoggedIn ? "/profile" : "/login"}>
                 <ItemMedia>
                   <UserIcon className="size-5" />
                 </ItemMedia>

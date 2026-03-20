@@ -10,7 +10,7 @@ export default async function Home() {
   const [explore, mains, desserts, drinks, sides, everything] = categories;
 
   return (
-    <main className="">
+    <>
       <CategoriesNavbar currentCategory="explore" />
       <div className="flex flex-col gap-5">
         <div className="relative flex h-[calc(100vh-12rem)] w-full items-center justify-center gap-4 px-10 py-16">
@@ -128,6 +128,6 @@ export default async function Home() {
           </div>
         </div>
       </div>
-    </main>
+    </>
   );
 }

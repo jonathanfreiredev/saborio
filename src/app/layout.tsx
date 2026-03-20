@@ -32,7 +32,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${fontNext.variable}`} suppressHydrationWarning>
-      <body>
+      <body className="flex min-h-screen flex-col">
         <TRPCReactProvider>
           <ThemeProvider
             attribute="class"
@@ -41,7 +41,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <Header />
-            {children}
+            <main className="flex-1">{children}</main>
             <Footer />
             <Toaster />
           </ThemeProvider>
