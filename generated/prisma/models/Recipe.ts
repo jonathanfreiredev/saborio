@@ -54,6 +54,7 @@ export type RecipeMinAggregateOutputType = {
   id: string | null
   title: string | null
   description: string | null
+  published: boolean | null
   slug: string | null
   imageUrl: string | null
   defaultServings: number | null
@@ -74,6 +75,7 @@ export type RecipeMaxAggregateOutputType = {
   id: string | null
   title: string | null
   description: string | null
+  published: boolean | null
   slug: string | null
   imageUrl: string | null
   defaultServings: number | null
@@ -94,6 +96,7 @@ export type RecipeCountAggregateOutputType = {
   id: number
   title: number
   description: number
+  published: number
   slug: number
   imageUrl: number
   defaultServings: number
@@ -140,6 +143,7 @@ export type RecipeMinAggregateInputType = {
   id?: true
   title?: true
   description?: true
+  published?: true
   slug?: true
   imageUrl?: true
   defaultServings?: true
@@ -160,6 +164,7 @@ export type RecipeMaxAggregateInputType = {
   id?: true
   title?: true
   description?: true
+  published?: true
   slug?: true
   imageUrl?: true
   defaultServings?: true
@@ -180,6 +185,7 @@ export type RecipeCountAggregateInputType = {
   id?: true
   title?: true
   description?: true
+  published?: true
   slug?: true
   imageUrl?: true
   defaultServings?: true
@@ -287,6 +293,7 @@ export type RecipeGroupByOutputType = {
   id: string
   title: string
   description: string
+  published: boolean
   slug: string
   imageUrl: string | null
   defaultServings: number
@@ -330,6 +337,7 @@ export type RecipeWhereInput = {
   id?: Prisma.StringFilter<"Recipe"> | string
   title?: Prisma.StringFilter<"Recipe"> | string
   description?: Prisma.StringFilter<"Recipe"> | string
+  published?: Prisma.BoolFilter<"Recipe"> | boolean
   slug?: Prisma.StringFilter<"Recipe"> | string
   imageUrl?: Prisma.StringNullableFilter<"Recipe"> | string | null
   defaultServings?: Prisma.IntFilter<"Recipe"> | number
@@ -356,6 +364,7 @@ export type RecipeOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  published?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   defaultServings?: Prisma.SortOrder
@@ -386,6 +395,7 @@ export type RecipeWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.RecipeWhereInput | Prisma.RecipeWhereInput[]
   title?: Prisma.StringFilter<"Recipe"> | string
   description?: Prisma.StringFilter<"Recipe"> | string
+  published?: Prisma.BoolFilter<"Recipe"> | boolean
   imageUrl?: Prisma.StringNullableFilter<"Recipe"> | string | null
   defaultServings?: Prisma.IntFilter<"Recipe"> | number
   likesCount?: Prisma.IntFilter<"Recipe"> | number
@@ -411,6 +421,7 @@ export type RecipeOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  published?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   defaultServings?: Prisma.SortOrder
@@ -439,6 +450,7 @@ export type RecipeScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Recipe"> | string
   title?: Prisma.StringWithAggregatesFilter<"Recipe"> | string
   description?: Prisma.StringWithAggregatesFilter<"Recipe"> | string
+  published?: Prisma.BoolWithAggregatesFilter<"Recipe"> | boolean
   slug?: Prisma.StringWithAggregatesFilter<"Recipe"> | string
   imageUrl?: Prisma.StringNullableWithAggregatesFilter<"Recipe"> | string | null
   defaultServings?: Prisma.IntWithAggregatesFilter<"Recipe"> | number
@@ -459,6 +471,7 @@ export type RecipeCreateInput = {
   id?: string
   title: string
   description: string
+  published?: boolean
   slug: string
   imageUrl?: string | null
   defaultServings: number
@@ -484,6 +497,7 @@ export type RecipeUncheckedCreateInput = {
   id?: string
   title: string
   description: string
+  published?: boolean
   slug: string
   imageUrl?: string | null
   defaultServings: number
@@ -509,6 +523,7 @@ export type RecipeUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultServings?: Prisma.IntFieldUpdateOperationsInput | number
@@ -534,6 +549,7 @@ export type RecipeUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultServings?: Prisma.IntFieldUpdateOperationsInput | number
@@ -559,6 +575,7 @@ export type RecipeCreateManyInput = {
   id?: string
   title: string
   description: string
+  published?: boolean
   slug: string
   imageUrl?: string | null
   defaultServings: number
@@ -579,6 +596,7 @@ export type RecipeUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultServings?: Prisma.IntFieldUpdateOperationsInput | number
@@ -598,6 +616,7 @@ export type RecipeUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultServings?: Prisma.IntFieldUpdateOperationsInput | number
@@ -628,6 +647,7 @@ export type RecipeCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  published?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
   defaultServings?: Prisma.SortOrder
@@ -660,6 +680,7 @@ export type RecipeMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  published?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
   defaultServings?: Prisma.SortOrder
@@ -680,6 +701,7 @@ export type RecipeMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  published?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
   defaultServings?: Prisma.SortOrder
@@ -837,6 +859,7 @@ export type RecipeCreateWithoutAuthorInput = {
   id?: string
   title: string
   description: string
+  published?: boolean
   slug: string
   imageUrl?: string | null
   defaultServings: number
@@ -861,6 +884,7 @@ export type RecipeUncheckedCreateWithoutAuthorInput = {
   id?: string
   title: string
   description: string
+  published?: boolean
   slug: string
   imageUrl?: string | null
   defaultServings: number
@@ -914,6 +938,7 @@ export type RecipeScalarWhereInput = {
   id?: Prisma.StringFilter<"Recipe"> | string
   title?: Prisma.StringFilter<"Recipe"> | string
   description?: Prisma.StringFilter<"Recipe"> | string
+  published?: Prisma.BoolFilter<"Recipe"> | boolean
   slug?: Prisma.StringFilter<"Recipe"> | string
   imageUrl?: Prisma.StringNullableFilter<"Recipe"> | string | null
   defaultServings?: Prisma.IntFilter<"Recipe"> | number
@@ -934,6 +959,7 @@ export type RecipeCreateWithoutIngredientsInput = {
   id?: string
   title: string
   description: string
+  published?: boolean
   slug: string
   imageUrl?: string | null
   defaultServings: number
@@ -958,6 +984,7 @@ export type RecipeUncheckedCreateWithoutIngredientsInput = {
   id?: string
   title: string
   description: string
+  published?: boolean
   slug: string
   imageUrl?: string | null
   defaultServings: number
@@ -998,6 +1025,7 @@ export type RecipeUpdateWithoutIngredientsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultServings?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1022,6 +1050,7 @@ export type RecipeUncheckedUpdateWithoutIngredientsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultServings?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1046,6 +1075,7 @@ export type RecipeCreateWithoutStepsInput = {
   id?: string
   title: string
   description: string
+  published?: boolean
   slug: string
   imageUrl?: string | null
   defaultServings: number
@@ -1070,6 +1100,7 @@ export type RecipeUncheckedCreateWithoutStepsInput = {
   id?: string
   title: string
   description: string
+  published?: boolean
   slug: string
   imageUrl?: string | null
   defaultServings: number
@@ -1110,6 +1141,7 @@ export type RecipeUpdateWithoutStepsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultServings?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1134,6 +1166,7 @@ export type RecipeUncheckedUpdateWithoutStepsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultServings?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1158,6 +1191,7 @@ export type RecipeCreateWithoutTagsInput = {
   id?: string
   title: string
   description: string
+  published?: boolean
   slug: string
   imageUrl?: string | null
   defaultServings: number
@@ -1182,6 +1216,7 @@ export type RecipeUncheckedCreateWithoutTagsInput = {
   id?: string
   title: string
   description: string
+  published?: boolean
   slug: string
   imageUrl?: string | null
   defaultServings: number
@@ -1222,6 +1257,7 @@ export type RecipeUpdateWithoutTagsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultServings?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1246,6 +1282,7 @@ export type RecipeUncheckedUpdateWithoutTagsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultServings?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1270,6 +1307,7 @@ export type RecipeCreateWithoutLikesInput = {
   id?: string
   title: string
   description: string
+  published?: boolean
   slug: string
   imageUrl?: string | null
   defaultServings: number
@@ -1294,6 +1332,7 @@ export type RecipeUncheckedCreateWithoutLikesInput = {
   id?: string
   title: string
   description: string
+  published?: boolean
   slug: string
   imageUrl?: string | null
   defaultServings: number
@@ -1334,6 +1373,7 @@ export type RecipeUpdateWithoutLikesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultServings?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1358,6 +1398,7 @@ export type RecipeUncheckedUpdateWithoutLikesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultServings?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1382,6 +1423,7 @@ export type RecipeCreateWithoutCookbooksInput = {
   id?: string
   title: string
   description: string
+  published?: boolean
   slug: string
   imageUrl?: string | null
   defaultServings: number
@@ -1406,6 +1448,7 @@ export type RecipeUncheckedCreateWithoutCookbooksInput = {
   id?: string
   title: string
   description: string
+  published?: boolean
   slug: string
   imageUrl?: string | null
   defaultServings: number
@@ -1446,6 +1489,7 @@ export type RecipeUpdateWithoutCookbooksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultServings?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1470,6 +1514,7 @@ export type RecipeUncheckedUpdateWithoutCookbooksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultServings?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1494,6 +1539,7 @@ export type RecipeCreateManyAuthorInput = {
   id?: string
   title: string
   description: string
+  published?: boolean
   slug: string
   imageUrl?: string | null
   defaultServings: number
@@ -1513,6 +1559,7 @@ export type RecipeUpdateWithoutAuthorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultServings?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1537,6 +1584,7 @@ export type RecipeUncheckedUpdateWithoutAuthorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultServings?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1561,6 +1609,7 @@ export type RecipeUncheckedUpdateManyWithoutAuthorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultServings?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1647,6 +1696,7 @@ export type RecipeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   id?: boolean
   title?: boolean
   description?: boolean
+  published?: boolean
   slug?: boolean
   imageUrl?: boolean
   defaultServings?: boolean
@@ -1674,6 +1724,7 @@ export type RecipeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   id?: boolean
   title?: boolean
   description?: boolean
+  published?: boolean
   slug?: boolean
   imageUrl?: boolean
   defaultServings?: boolean
@@ -1695,6 +1746,7 @@ export type RecipeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   id?: boolean
   title?: boolean
   description?: boolean
+  published?: boolean
   slug?: boolean
   imageUrl?: boolean
   defaultServings?: boolean
@@ -1716,6 +1768,7 @@ export type RecipeSelectScalar = {
   id?: boolean
   title?: boolean
   description?: boolean
+  published?: boolean
   slug?: boolean
   imageUrl?: boolean
   defaultServings?: boolean
@@ -1732,7 +1785,7 @@ export type RecipeSelectScalar = {
   authorId?: boolean
 }
 
-export type RecipeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "slug" | "imageUrl" | "defaultServings" | "likesCount" | "preparationTime" | "cookingTime" | "restingTime" | "calories" | "carbohydrates" | "protein" | "fat" | "createdAt" | "updatedAt" | "authorId", ExtArgs["result"]["recipe"]>
+export type RecipeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "published" | "slug" | "imageUrl" | "defaultServings" | "likesCount" | "preparationTime" | "cookingTime" | "restingTime" | "calories" | "carbohydrates" | "protein" | "fat" | "createdAt" | "updatedAt" | "authorId", ExtArgs["result"]["recipe"]>
 export type RecipeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   ingredients?: boolean | Prisma.Recipe$ingredientsArgs<ExtArgs>
   steps?: boolean | Prisma.Recipe$stepsArgs<ExtArgs>
@@ -1763,6 +1816,7 @@ export type $RecipePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     id: string
     title: string
     description: string
+    published: boolean
     slug: string
     imageUrl: string | null
     defaultServings: number
@@ -2209,6 +2263,7 @@ export interface RecipeFieldRefs {
   readonly id: Prisma.FieldRef<"Recipe", 'String'>
   readonly title: Prisma.FieldRef<"Recipe", 'String'>
   readonly description: Prisma.FieldRef<"Recipe", 'String'>
+  readonly published: Prisma.FieldRef<"Recipe", 'Boolean'>
   readonly slug: Prisma.FieldRef<"Recipe", 'String'>
   readonly imageUrl: Prisma.FieldRef<"Recipe", 'String'>
   readonly defaultServings: Prisma.FieldRef<"Recipe", 'Int'>

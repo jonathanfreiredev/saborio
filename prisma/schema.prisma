@@ -94,6 +94,7 @@ model Recipe {
   id              String       @id @default(cuid())
   title           String
   description     String
+  published       Boolean      @default(false)
   slug            String       @unique
   imageUrl        String?
   ingredients     Ingredient[]

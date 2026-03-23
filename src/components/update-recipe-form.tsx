@@ -6,6 +6,7 @@ import { z } from "zod";
 import { cn } from "~/lib/utils";
 import { recipeSchema } from "~/server/api/routers/recipes/validation";
 import { api } from "~/trpc/react";
+import type { RecipeDto } from "~/types/recipe";
 import { RecipeForm } from "./recipe-form";
 import { Button } from "./ui/button";
 import {
@@ -17,38 +18,45 @@ import {
 } from "./ui/card";
 import { Field } from "./ui/field";
 
-export const CreateRecipeForm = ({
+interface UpdateRecipeFormProps {
+  recipe: RecipeDto;
+}
+
+export const UpdateRecipeForm = ({
+  recipe,
   className,
   ...props
-}: React.ComponentProps<"div">) => {
+}: React.ComponentProps<"div"> & UpdateRecipeFormProps) => {
   const router = useRouter();
 
-  const createRecipeMutation = api.recipes.create.useMutation();
+  const updateRecipeMutation = api.recipes.update.useMutation();
 
   const form = useForm<z.infer<typeof recipeSchema>>({
     resolver: zodResolver(recipeSchema),
     defaultValues: {
-      title: "",
-      description: "",
-      imageUrl: null,
-      defaultServings: 1,
-      preparationTime: 0,
-      cookingTime: 0,
-      restingTime: 0,
-      calories: 0,
-      carbohydrates: 0,
-      protein: 0,
-      fat: 0,
-      tags: [],
+      title: recipe.title,
+      description: recipe.description,
+      imageUrl: recipe.imageUrl,
+      defaultServings: recipe.defaultServings,
+      preparationTime: recipe.preparationTime,
+      cookingTime: recipe.cookingTime,
+      restingTime: recipe.restingTime,
+      calories: recipe.calories,
+      carbohydrates: recipe.carbohydrates,
+      protein: recipe.protein,
+      fat: recipe.fat,
+      tags: recipe.tags.map((recipeTag) => recipeTag.tag.name),
     },
   });
 
   async function onSubmit(data: z.infer<typeof recipeSchema>) {
-    console.log("Submitting form with data:", data);
-    const recipe = await createRecipeMutation.mutateAsync(data);
+    const updatedRecipe = await updateRecipeMutation.mutateAsync({
+      id: recipe.id,
+      recipe: data,
+    });
 
-    if (recipe) {
-      router.push(`/recipes/${recipe.slug}/update/ingredients`);
+    if (updatedRecipe) {
+      router.push(`/recipes/${updatedRecipe.slug}/update/ingredients`);
     }
   }
 
@@ -59,9 +67,9 @@ export const CreateRecipeForm = ({
     >
       <Card>
         <CardHeader className="text-center">
-          <CardTitle className="text-xl">New Recipe</CardTitle>
+          <CardTitle className="text-xl">Update Recipe</CardTitle>
           <CardDescription>
-            Fill out the form below to create a new recipe.
+            Fill out the form below to update your recipe details.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -74,7 +82,7 @@ export const CreateRecipeForm = ({
                 form="form-create-recipe"
                 disabled={form.formState.isSubmitting}
               >
-                Create Recipe
+                Update Recipe
               </Button>
             </Field>
           </form>
