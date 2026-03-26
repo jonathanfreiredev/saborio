@@ -21,5 +21,6 @@ export const createQueryClient = () =>
       hydrate: {
         deserializeData: SuperJSON.deserialize,
       },
+      mutations: {},
     },
   });

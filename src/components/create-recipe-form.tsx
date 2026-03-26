@@ -16,6 +16,8 @@ import {
   CardTitle,
 } from "./ui/card";
 import { Field } from "./ui/field";
+import { Category, Difficulty } from "generated/prisma/enums";
+import { toast } from "sonner";
 
 export const CreateRecipeForm = ({
   className,
@@ -30,7 +32,9 @@ export const CreateRecipeForm = ({
     defaultValues: {
       title: "",
       description: "",
-      imageUrl: null,
+      category: Category.MAIN_COURSE,
+      difficulty: Difficulty.EASY,
+      image: null,
       defaultServings: 1,
       preparationTime: 0,
       cookingTime: 0,
@@ -44,8 +48,43 @@ export const CreateRecipeForm = ({
   });
 
   async function onSubmit(data: z.infer<typeof recipeSchema>) {
-    console.log("Submitting form with data:", data);
-    const recipe = await createRecipeMutation.mutateAsync(data);
+    const { image, ...restData } = data;
+
+    let imageUrl: string | null = null;
+
+    if (data.image && data.image.preview.startsWith("blob:")) {
+      const formData = new FormData();
+      formData.append("file", data.image.file);
+
+      const response = await fetch("/api/images/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        console.error("Image upload failed");
+        return;
+      }
+
+      const resImage: { url: string } = await response.json();
+
+      imageUrl = resImage.url;
+    }
+
+    const recipe = await createRecipeMutation.mutateAsync(
+      {
+        ...restData,
+        imageUrl,
+      },
+      {
+        onError: (error) => {
+          toast.error("Failed to create recipe", {
+            description: error.message,
+            position: "bottom-right",
+          });
+        },
+      },
+    );
 
     if (recipe) {
       router.push(`/recipes/${recipe.slug}/update/ingredients`);

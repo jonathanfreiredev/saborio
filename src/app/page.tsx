@@ -13,7 +13,7 @@ export default async function Home() {
     <>
       <CategoriesNavbar currentCategory="explore" />
       <div className="flex flex-col gap-5">
-        <div className="relative flex h-[calc(100vh-12rem)] w-full items-center justify-center gap-4 px-10 py-16">
+        <div className="relative flex h-[calc(100vh-12rem)] max-h-250 w-full items-center justify-center gap-4 px-10 py-16">
           <Image
             src="/images/lime-and-green-leaves.webp"
             alt="Lime and green leaves"
@@ -49,7 +49,7 @@ export default async function Home() {
           </div>
         </div>
 
-        <div className="relative flex h-[calc(100vh-12rem)] w-full flex-col gap-5 lg:flex-row">
+        <div className="relative flex h-[calc(100vh-12rem)] max-h-220 w-full flex-col gap-5 lg:flex-row">
           <div className="relative flex-1">
             <Image
               src="/images/aperol-drink.webp"
@@ -102,7 +102,7 @@ export default async function Home() {
           </div>
         </div>
 
-        <div className="relative h-[calc(100vh-12rem)] w-full">
+        <div className="relative h-[calc(100vh-12rem)] max-h-220 w-full">
           <Image
             src="/images/baked-tuna-pasta.webp"
             alt="Baked tuna pasta"

@@ -28,7 +28,10 @@ export function CarouselMainCategory() {
     <Carousel className="h-full w-full">
       <CarouselContent className="-ml-1 h-full">
         {mains.map((dish, index) => (
-          <CarouselItem key={index} className="h-full basis-1/2 sm:basis-1/3">
+          <CarouselItem
+            key={index}
+            className="h-full basis-1/2 sm:basis-1/3 2xl:basis-1/4"
+          >
             <div className="relative box-border flex h-full items-center justify-center shadow-xl">
               <Image
                 src={dish.image}

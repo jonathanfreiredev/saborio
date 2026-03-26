@@ -59,6 +59,8 @@ export type RecipeMinAggregateOutputType = {
   imageUrl: string | null
   defaultServings: number | null
   likesCount: number | null
+  difficulty: $Enums.Difficulty | null
+  category: $Enums.Category | null
   preparationTime: number | null
   cookingTime: number | null
   restingTime: number | null
@@ -80,6 +82,8 @@ export type RecipeMaxAggregateOutputType = {
   imageUrl: string | null
   defaultServings: number | null
   likesCount: number | null
+  difficulty: $Enums.Difficulty | null
+  category: $Enums.Category | null
   preparationTime: number | null
   cookingTime: number | null
   restingTime: number | null
@@ -101,6 +105,8 @@ export type RecipeCountAggregateOutputType = {
   imageUrl: number
   defaultServings: number
   likesCount: number
+  difficulty: number
+  category: number
   preparationTime: number
   cookingTime: number
   restingTime: number
@@ -148,6 +154,8 @@ export type RecipeMinAggregateInputType = {
   imageUrl?: true
   defaultServings?: true
   likesCount?: true
+  difficulty?: true
+  category?: true
   preparationTime?: true
   cookingTime?: true
   restingTime?: true
@@ -169,6 +177,8 @@ export type RecipeMaxAggregateInputType = {
   imageUrl?: true
   defaultServings?: true
   likesCount?: true
+  difficulty?: true
+  category?: true
   preparationTime?: true
   cookingTime?: true
   restingTime?: true
@@ -190,6 +200,8 @@ export type RecipeCountAggregateInputType = {
   imageUrl?: true
   defaultServings?: true
   likesCount?: true
+  difficulty?: true
+  category?: true
   preparationTime?: true
   cookingTime?: true
   restingTime?: true
@@ -298,6 +310,8 @@ export type RecipeGroupByOutputType = {
   imageUrl: string | null
   defaultServings: number
   likesCount: number
+  difficulty: $Enums.Difficulty
+  category: $Enums.Category
   preparationTime: number
   cookingTime: number
   restingTime: number
@@ -342,6 +356,8 @@ export type RecipeWhereInput = {
   imageUrl?: Prisma.StringNullableFilter<"Recipe"> | string | null
   defaultServings?: Prisma.IntFilter<"Recipe"> | number
   likesCount?: Prisma.IntFilter<"Recipe"> | number
+  difficulty?: Prisma.EnumDifficultyFilter<"Recipe"> | $Enums.Difficulty
+  category?: Prisma.EnumCategoryFilter<"Recipe"> | $Enums.Category
   preparationTime?: Prisma.IntFilter<"Recipe"> | number
   cookingTime?: Prisma.IntFilter<"Recipe"> | number
   restingTime?: Prisma.IntFilter<"Recipe"> | number
@@ -369,6 +385,8 @@ export type RecipeOrderByWithRelationInput = {
   imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   defaultServings?: Prisma.SortOrder
   likesCount?: Prisma.SortOrder
+  difficulty?: Prisma.SortOrder
+  category?: Prisma.SortOrder
   preparationTime?: Prisma.SortOrder
   cookingTime?: Prisma.SortOrder
   restingTime?: Prisma.SortOrder
@@ -399,6 +417,8 @@ export type RecipeWhereUniqueInput = Prisma.AtLeast<{
   imageUrl?: Prisma.StringNullableFilter<"Recipe"> | string | null
   defaultServings?: Prisma.IntFilter<"Recipe"> | number
   likesCount?: Prisma.IntFilter<"Recipe"> | number
+  difficulty?: Prisma.EnumDifficultyFilter<"Recipe"> | $Enums.Difficulty
+  category?: Prisma.EnumCategoryFilter<"Recipe"> | $Enums.Category
   preparationTime?: Prisma.IntFilter<"Recipe"> | number
   cookingTime?: Prisma.IntFilter<"Recipe"> | number
   restingTime?: Prisma.IntFilter<"Recipe"> | number
@@ -426,6 +446,8 @@ export type RecipeOrderByWithAggregationInput = {
   imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   defaultServings?: Prisma.SortOrder
   likesCount?: Prisma.SortOrder
+  difficulty?: Prisma.SortOrder
+  category?: Prisma.SortOrder
   preparationTime?: Prisma.SortOrder
   cookingTime?: Prisma.SortOrder
   restingTime?: Prisma.SortOrder
@@ -455,6 +477,8 @@ export type RecipeScalarWhereWithAggregatesInput = {
   imageUrl?: Prisma.StringNullableWithAggregatesFilter<"Recipe"> | string | null
   defaultServings?: Prisma.IntWithAggregatesFilter<"Recipe"> | number
   likesCount?: Prisma.IntWithAggregatesFilter<"Recipe"> | number
+  difficulty?: Prisma.EnumDifficultyWithAggregatesFilter<"Recipe"> | $Enums.Difficulty
+  category?: Prisma.EnumCategoryWithAggregatesFilter<"Recipe"> | $Enums.Category
   preparationTime?: Prisma.IntWithAggregatesFilter<"Recipe"> | number
   cookingTime?: Prisma.IntWithAggregatesFilter<"Recipe"> | number
   restingTime?: Prisma.IntWithAggregatesFilter<"Recipe"> | number
@@ -476,6 +500,8 @@ export type RecipeCreateInput = {
   imageUrl?: string | null
   defaultServings: number
   likesCount?: number
+  difficulty?: $Enums.Difficulty
+  category?: $Enums.Category
   preparationTime: number
   cookingTime: number
   restingTime: number
@@ -502,6 +528,8 @@ export type RecipeUncheckedCreateInput = {
   imageUrl?: string | null
   defaultServings: number
   likesCount?: number
+  difficulty?: $Enums.Difficulty
+  category?: $Enums.Category
   preparationTime: number
   cookingTime: number
   restingTime: number
@@ -528,6 +556,8 @@ export type RecipeUpdateInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultServings?: Prisma.IntFieldUpdateOperationsInput | number
   likesCount?: Prisma.IntFieldUpdateOperationsInput | number
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+  category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
   preparationTime?: Prisma.IntFieldUpdateOperationsInput | number
   cookingTime?: Prisma.IntFieldUpdateOperationsInput | number
   restingTime?: Prisma.IntFieldUpdateOperationsInput | number
@@ -554,6 +584,8 @@ export type RecipeUncheckedUpdateInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultServings?: Prisma.IntFieldUpdateOperationsInput | number
   likesCount?: Prisma.IntFieldUpdateOperationsInput | number
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+  category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
   preparationTime?: Prisma.IntFieldUpdateOperationsInput | number
   cookingTime?: Prisma.IntFieldUpdateOperationsInput | number
   restingTime?: Prisma.IntFieldUpdateOperationsInput | number
@@ -580,6 +612,8 @@ export type RecipeCreateManyInput = {
   imageUrl?: string | null
   defaultServings: number
   likesCount?: number
+  difficulty?: $Enums.Difficulty
+  category?: $Enums.Category
   preparationTime: number
   cookingTime: number
   restingTime: number
@@ -601,6 +635,8 @@ export type RecipeUpdateManyMutationInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultServings?: Prisma.IntFieldUpdateOperationsInput | number
   likesCount?: Prisma.IntFieldUpdateOperationsInput | number
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+  category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
   preparationTime?: Prisma.IntFieldUpdateOperationsInput | number
   cookingTime?: Prisma.IntFieldUpdateOperationsInput | number
   restingTime?: Prisma.IntFieldUpdateOperationsInput | number
@@ -621,6 +657,8 @@ export type RecipeUncheckedUpdateManyInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultServings?: Prisma.IntFieldUpdateOperationsInput | number
   likesCount?: Prisma.IntFieldUpdateOperationsInput | number
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+  category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
   preparationTime?: Prisma.IntFieldUpdateOperationsInput | number
   cookingTime?: Prisma.IntFieldUpdateOperationsInput | number
   restingTime?: Prisma.IntFieldUpdateOperationsInput | number
@@ -652,6 +690,8 @@ export type RecipeCountOrderByAggregateInput = {
   imageUrl?: Prisma.SortOrder
   defaultServings?: Prisma.SortOrder
   likesCount?: Prisma.SortOrder
+  difficulty?: Prisma.SortOrder
+  category?: Prisma.SortOrder
   preparationTime?: Prisma.SortOrder
   cookingTime?: Prisma.SortOrder
   restingTime?: Prisma.SortOrder
@@ -685,6 +725,8 @@ export type RecipeMaxOrderByAggregateInput = {
   imageUrl?: Prisma.SortOrder
   defaultServings?: Prisma.SortOrder
   likesCount?: Prisma.SortOrder
+  difficulty?: Prisma.SortOrder
+  category?: Prisma.SortOrder
   preparationTime?: Prisma.SortOrder
   cookingTime?: Prisma.SortOrder
   restingTime?: Prisma.SortOrder
@@ -706,6 +748,8 @@ export type RecipeMinOrderByAggregateInput = {
   imageUrl?: Prisma.SortOrder
   defaultServings?: Prisma.SortOrder
   likesCount?: Prisma.SortOrder
+  difficulty?: Prisma.SortOrder
+  category?: Prisma.SortOrder
   preparationTime?: Prisma.SortOrder
   cookingTime?: Prisma.SortOrder
   restingTime?: Prisma.SortOrder
@@ -783,6 +827,14 @@ export type IntFieldUpdateOperationsInput = {
   decrement?: number
   multiply?: number
   divide?: number
+}
+
+export type EnumDifficultyFieldUpdateOperationsInput = {
+  set?: $Enums.Difficulty
+}
+
+export type EnumCategoryFieldUpdateOperationsInput = {
+  set?: $Enums.Category
 }
 
 export type RecipeCreateNestedOneWithoutIngredientsInput = {
@@ -864,6 +916,8 @@ export type RecipeCreateWithoutAuthorInput = {
   imageUrl?: string | null
   defaultServings: number
   likesCount?: number
+  difficulty?: $Enums.Difficulty
+  category?: $Enums.Category
   preparationTime: number
   cookingTime: number
   restingTime: number
@@ -889,6 +943,8 @@ export type RecipeUncheckedCreateWithoutAuthorInput = {
   imageUrl?: string | null
   defaultServings: number
   likesCount?: number
+  difficulty?: $Enums.Difficulty
+  category?: $Enums.Category
   preparationTime: number
   cookingTime: number
   restingTime: number
@@ -943,6 +999,8 @@ export type RecipeScalarWhereInput = {
   imageUrl?: Prisma.StringNullableFilter<"Recipe"> | string | null
   defaultServings?: Prisma.IntFilter<"Recipe"> | number
   likesCount?: Prisma.IntFilter<"Recipe"> | number
+  difficulty?: Prisma.EnumDifficultyFilter<"Recipe"> | $Enums.Difficulty
+  category?: Prisma.EnumCategoryFilter<"Recipe"> | $Enums.Category
   preparationTime?: Prisma.IntFilter<"Recipe"> | number
   cookingTime?: Prisma.IntFilter<"Recipe"> | number
   restingTime?: Prisma.IntFilter<"Recipe"> | number
@@ -964,6 +1022,8 @@ export type RecipeCreateWithoutIngredientsInput = {
   imageUrl?: string | null
   defaultServings: number
   likesCount?: number
+  difficulty?: $Enums.Difficulty
+  category?: $Enums.Category
   preparationTime: number
   cookingTime: number
   restingTime: number
@@ -989,6 +1049,8 @@ export type RecipeUncheckedCreateWithoutIngredientsInput = {
   imageUrl?: string | null
   defaultServings: number
   likesCount?: number
+  difficulty?: $Enums.Difficulty
+  category?: $Enums.Category
   preparationTime: number
   cookingTime: number
   restingTime: number
@@ -1030,6 +1092,8 @@ export type RecipeUpdateWithoutIngredientsInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultServings?: Prisma.IntFieldUpdateOperationsInput | number
   likesCount?: Prisma.IntFieldUpdateOperationsInput | number
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+  category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
   preparationTime?: Prisma.IntFieldUpdateOperationsInput | number
   cookingTime?: Prisma.IntFieldUpdateOperationsInput | number
   restingTime?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1055,6 +1119,8 @@ export type RecipeUncheckedUpdateWithoutIngredientsInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultServings?: Prisma.IntFieldUpdateOperationsInput | number
   likesCount?: Prisma.IntFieldUpdateOperationsInput | number
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+  category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
   preparationTime?: Prisma.IntFieldUpdateOperationsInput | number
   cookingTime?: Prisma.IntFieldUpdateOperationsInput | number
   restingTime?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1080,6 +1146,8 @@ export type RecipeCreateWithoutStepsInput = {
   imageUrl?: string | null
   defaultServings: number
   likesCount?: number
+  difficulty?: $Enums.Difficulty
+  category?: $Enums.Category
   preparationTime: number
   cookingTime: number
   restingTime: number
@@ -1105,6 +1173,8 @@ export type RecipeUncheckedCreateWithoutStepsInput = {
   imageUrl?: string | null
   defaultServings: number
   likesCount?: number
+  difficulty?: $Enums.Difficulty
+  category?: $Enums.Category
   preparationTime: number
   cookingTime: number
   restingTime: number
@@ -1146,6 +1216,8 @@ export type RecipeUpdateWithoutStepsInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultServings?: Prisma.IntFieldUpdateOperationsInput | number
   likesCount?: Prisma.IntFieldUpdateOperationsInput | number
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+  category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
   preparationTime?: Prisma.IntFieldUpdateOperationsInput | number
   cookingTime?: Prisma.IntFieldUpdateOperationsInput | number
   restingTime?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1171,6 +1243,8 @@ export type RecipeUncheckedUpdateWithoutStepsInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultServings?: Prisma.IntFieldUpdateOperationsInput | number
   likesCount?: Prisma.IntFieldUpdateOperationsInput | number
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+  category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
   preparationTime?: Prisma.IntFieldUpdateOperationsInput | number
   cookingTime?: Prisma.IntFieldUpdateOperationsInput | number
   restingTime?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1196,6 +1270,8 @@ export type RecipeCreateWithoutTagsInput = {
   imageUrl?: string | null
   defaultServings: number
   likesCount?: number
+  difficulty?: $Enums.Difficulty
+  category?: $Enums.Category
   preparationTime: number
   cookingTime: number
   restingTime: number
@@ -1221,6 +1297,8 @@ export type RecipeUncheckedCreateWithoutTagsInput = {
   imageUrl?: string | null
   defaultServings: number
   likesCount?: number
+  difficulty?: $Enums.Difficulty
+  category?: $Enums.Category
   preparationTime: number
   cookingTime: number
   restingTime: number
@@ -1262,6 +1340,8 @@ export type RecipeUpdateWithoutTagsInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultServings?: Prisma.IntFieldUpdateOperationsInput | number
   likesCount?: Prisma.IntFieldUpdateOperationsInput | number
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+  category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
   preparationTime?: Prisma.IntFieldUpdateOperationsInput | number
   cookingTime?: Prisma.IntFieldUpdateOperationsInput | number
   restingTime?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1287,6 +1367,8 @@ export type RecipeUncheckedUpdateWithoutTagsInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultServings?: Prisma.IntFieldUpdateOperationsInput | number
   likesCount?: Prisma.IntFieldUpdateOperationsInput | number
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+  category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
   preparationTime?: Prisma.IntFieldUpdateOperationsInput | number
   cookingTime?: Prisma.IntFieldUpdateOperationsInput | number
   restingTime?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1312,6 +1394,8 @@ export type RecipeCreateWithoutLikesInput = {
   imageUrl?: string | null
   defaultServings: number
   likesCount?: number
+  difficulty?: $Enums.Difficulty
+  category?: $Enums.Category
   preparationTime: number
   cookingTime: number
   restingTime: number
@@ -1337,6 +1421,8 @@ export type RecipeUncheckedCreateWithoutLikesInput = {
   imageUrl?: string | null
   defaultServings: number
   likesCount?: number
+  difficulty?: $Enums.Difficulty
+  category?: $Enums.Category
   preparationTime: number
   cookingTime: number
   restingTime: number
@@ -1378,6 +1464,8 @@ export type RecipeUpdateWithoutLikesInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultServings?: Prisma.IntFieldUpdateOperationsInput | number
   likesCount?: Prisma.IntFieldUpdateOperationsInput | number
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+  category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
   preparationTime?: Prisma.IntFieldUpdateOperationsInput | number
   cookingTime?: Prisma.IntFieldUpdateOperationsInput | number
   restingTime?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1403,6 +1491,8 @@ export type RecipeUncheckedUpdateWithoutLikesInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultServings?: Prisma.IntFieldUpdateOperationsInput | number
   likesCount?: Prisma.IntFieldUpdateOperationsInput | number
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+  category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
   preparationTime?: Prisma.IntFieldUpdateOperationsInput | number
   cookingTime?: Prisma.IntFieldUpdateOperationsInput | number
   restingTime?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1428,6 +1518,8 @@ export type RecipeCreateWithoutCookbooksInput = {
   imageUrl?: string | null
   defaultServings: number
   likesCount?: number
+  difficulty?: $Enums.Difficulty
+  category?: $Enums.Category
   preparationTime: number
   cookingTime: number
   restingTime: number
@@ -1453,6 +1545,8 @@ export type RecipeUncheckedCreateWithoutCookbooksInput = {
   imageUrl?: string | null
   defaultServings: number
   likesCount?: number
+  difficulty?: $Enums.Difficulty
+  category?: $Enums.Category
   preparationTime: number
   cookingTime: number
   restingTime: number
@@ -1494,6 +1588,8 @@ export type RecipeUpdateWithoutCookbooksInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultServings?: Prisma.IntFieldUpdateOperationsInput | number
   likesCount?: Prisma.IntFieldUpdateOperationsInput | number
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+  category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
   preparationTime?: Prisma.IntFieldUpdateOperationsInput | number
   cookingTime?: Prisma.IntFieldUpdateOperationsInput | number
   restingTime?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1519,6 +1615,8 @@ export type RecipeUncheckedUpdateWithoutCookbooksInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultServings?: Prisma.IntFieldUpdateOperationsInput | number
   likesCount?: Prisma.IntFieldUpdateOperationsInput | number
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+  category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
   preparationTime?: Prisma.IntFieldUpdateOperationsInput | number
   cookingTime?: Prisma.IntFieldUpdateOperationsInput | number
   restingTime?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1544,6 +1642,8 @@ export type RecipeCreateManyAuthorInput = {
   imageUrl?: string | null
   defaultServings: number
   likesCount?: number
+  difficulty?: $Enums.Difficulty
+  category?: $Enums.Category
   preparationTime: number
   cookingTime: number
   restingTime: number
@@ -1564,6 +1664,8 @@ export type RecipeUpdateWithoutAuthorInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultServings?: Prisma.IntFieldUpdateOperationsInput | number
   likesCount?: Prisma.IntFieldUpdateOperationsInput | number
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+  category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
   preparationTime?: Prisma.IntFieldUpdateOperationsInput | number
   cookingTime?: Prisma.IntFieldUpdateOperationsInput | number
   restingTime?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1589,6 +1691,8 @@ export type RecipeUncheckedUpdateWithoutAuthorInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultServings?: Prisma.IntFieldUpdateOperationsInput | number
   likesCount?: Prisma.IntFieldUpdateOperationsInput | number
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+  category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
   preparationTime?: Prisma.IntFieldUpdateOperationsInput | number
   cookingTime?: Prisma.IntFieldUpdateOperationsInput | number
   restingTime?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1614,6 +1718,8 @@ export type RecipeUncheckedUpdateManyWithoutAuthorInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultServings?: Prisma.IntFieldUpdateOperationsInput | number
   likesCount?: Prisma.IntFieldUpdateOperationsInput | number
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+  category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
   preparationTime?: Prisma.IntFieldUpdateOperationsInput | number
   cookingTime?: Prisma.IntFieldUpdateOperationsInput | number
   restingTime?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1701,6 +1807,8 @@ export type RecipeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   imageUrl?: boolean
   defaultServings?: boolean
   likesCount?: boolean
+  difficulty?: boolean
+  category?: boolean
   preparationTime?: boolean
   cookingTime?: boolean
   restingTime?: boolean
@@ -1729,6 +1837,8 @@ export type RecipeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   imageUrl?: boolean
   defaultServings?: boolean
   likesCount?: boolean
+  difficulty?: boolean
+  category?: boolean
   preparationTime?: boolean
   cookingTime?: boolean
   restingTime?: boolean
@@ -1751,6 +1861,8 @@ export type RecipeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   imageUrl?: boolean
   defaultServings?: boolean
   likesCount?: boolean
+  difficulty?: boolean
+  category?: boolean
   preparationTime?: boolean
   cookingTime?: boolean
   restingTime?: boolean
@@ -1773,6 +1885,8 @@ export type RecipeSelectScalar = {
   imageUrl?: boolean
   defaultServings?: boolean
   likesCount?: boolean
+  difficulty?: boolean
+  category?: boolean
   preparationTime?: boolean
   cookingTime?: boolean
   restingTime?: boolean
@@ -1785,7 +1899,7 @@ export type RecipeSelectScalar = {
   authorId?: boolean
 }
 
-export type RecipeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "published" | "slug" | "imageUrl" | "defaultServings" | "likesCount" | "preparationTime" | "cookingTime" | "restingTime" | "calories" | "carbohydrates" | "protein" | "fat" | "createdAt" | "updatedAt" | "authorId", ExtArgs["result"]["recipe"]>
+export type RecipeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "published" | "slug" | "imageUrl" | "defaultServings" | "likesCount" | "difficulty" | "category" | "preparationTime" | "cookingTime" | "restingTime" | "calories" | "carbohydrates" | "protein" | "fat" | "createdAt" | "updatedAt" | "authorId", ExtArgs["result"]["recipe"]>
 export type RecipeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   ingredients?: boolean | Prisma.Recipe$ingredientsArgs<ExtArgs>
   steps?: boolean | Prisma.Recipe$stepsArgs<ExtArgs>
@@ -1821,6 +1935,8 @@ export type $RecipePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     imageUrl: string | null
     defaultServings: number
     likesCount: number
+    difficulty: $Enums.Difficulty
+    category: $Enums.Category
     preparationTime: number
     cookingTime: number
     restingTime: number
@@ -2268,6 +2384,8 @@ export interface RecipeFieldRefs {
   readonly imageUrl: Prisma.FieldRef<"Recipe", 'String'>
   readonly defaultServings: Prisma.FieldRef<"Recipe", 'Int'>
   readonly likesCount: Prisma.FieldRef<"Recipe", 'Int'>
+  readonly difficulty: Prisma.FieldRef<"Recipe", 'Difficulty'>
+  readonly category: Prisma.FieldRef<"Recipe", 'Category'>
   readonly preparationTime: Prisma.FieldRef<"Recipe", 'Int'>
   readonly cookingTime: Prisma.FieldRef<"Recipe", 'Int'>
   readonly restingTime: Prisma.FieldRef<"Recipe", 'Int'>

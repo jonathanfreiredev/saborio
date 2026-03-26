@@ -53,6 +53,9 @@ export const RecipeStepsForm = ({
         description: step.description,
         imageUrl: step.imageUrl,
         order: step.order,
+        image: step.imageUrl
+          ? { file: new File([], "image.jpg"), preview: step.imageUrl }
+          : null,
       })),
     },
   });
@@ -71,10 +74,49 @@ export const RecipeStepsForm = ({
   });
 
   async function onSubmit(data: z.infer<typeof recipeStepsSchema>) {
+    const steps: {
+      description: string;
+      order: number;
+      imageUrl: string | null;
+    }[] = [];
+
+    for (const step of data.steps) {
+      let imageUrl: string | null = step.imageUrl;
+
+      if (step.image && step.image.preview.startsWith("blob:")) {
+        const formData = new FormData();
+        formData.append("file", step.image.file);
+
+        const response = await fetch("/api/images/upload", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (!response.ok) {
+          console.error("Image upload failed");
+          return;
+        }
+
+        const resImage: { url: string } = await response.json();
+
+        imageUrl = resImage.url;
+      } else if (step.image === null) {
+        imageUrl = null;
+      }
+
+      steps.push({
+        description: step.description,
+        order: step.order,
+        imageUrl,
+      });
+    }
+
     const input = {
       recipeId: recipe.id,
-      steps: data.steps,
+      steps,
     };
+
+    console.log("Submitting steps:", input);
 
     await updateStepsMutation.mutateAsync(input);
 
@@ -165,6 +207,7 @@ export const RecipeStepsForm = ({
                       description: "New Step",
                       imageUrl: null,
                       order: fields.length,
+                      image: null,
                     })
                   }
                 >

@@ -17,6 +17,8 @@ import {
   CardTitle,
 } from "./ui/card";
 import { Field } from "./ui/field";
+import { toast } from "sonner";
+import { deleteImageByUrl } from "~/server/api/routers/images/service";
 
 interface UpdateRecipeFormProps {
   recipe: RecipeDto;
@@ -36,7 +38,11 @@ export const UpdateRecipeForm = ({
     defaultValues: {
       title: recipe.title,
       description: recipe.description,
-      imageUrl: recipe.imageUrl,
+      category: recipe.category,
+      difficulty: recipe.difficulty,
+      image: recipe.imageUrl
+        ? { file: new File([], "image.jpg"), preview: recipe.imageUrl }
+        : null,
       defaultServings: recipe.defaultServings,
       preparationTime: recipe.preparationTime,
       cookingTime: recipe.cookingTime,
@@ -50,10 +56,47 @@ export const UpdateRecipeForm = ({
   });
 
   async function onSubmit(data: z.infer<typeof recipeSchema>) {
-    const updatedRecipe = await updateRecipeMutation.mutateAsync({
-      id: recipe.id,
-      recipe: data,
-    });
+    const { image, ...restData } = data;
+
+    let imageUrl: string | null = recipe.imageUrl;
+
+    if (image && image.preview.startsWith("blob:")) {
+      const formData = new FormData();
+      formData.append("file", image.file);
+
+      const response = await fetch("/api/images/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        console.error("Image upload failed");
+        return;
+      }
+
+      const resImage: { url: string } = await response.json();
+
+      imageUrl = resImage.url;
+    } else if (image === null) {
+      imageUrl = null;
+    }
+
+    const updatedRecipe = await updateRecipeMutation.mutateAsync(
+      {
+        id: recipe.id,
+        recipe: {
+          ...restData,
+          imageUrl,
+        },
+      },
+      {
+        onError: (error) => {
+          toast.error("Failed to create recipe", {
+            position: "bottom-right",
+          });
+        },
+      },
+    );
 
     if (updatedRecipe) {
       router.push(`/recipes/${updatedRecipe.slug}/update/ingredients`);

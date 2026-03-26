@@ -9,6 +9,25 @@
 * 🟢 You can import this file directly.
 */
 
+export const Difficulty = {
+  EASY: 'EASY',
+  MEDIUM: 'MEDIUM',
+  HARD: 'HARD'
+} as const
+
+export type Difficulty = (typeof Difficulty)[keyof typeof Difficulty]
+
+
+export const Category = {
+  MAIN_COURSE: 'MAIN_COURSE',
+  DESSERT: 'DESSERT',
+  DRINK: 'DRINK',
+  SIDE_DISH: 'SIDE_DISH'
+} as const
+
+export type Category = (typeof Category)[keyof typeof Category]
+
+
 export const Unit = {
   GRAM: 'GRAM',
   KILOGRAM: 'KILOGRAM',

@@ -1,24 +1,39 @@
+import { Category } from "generated/prisma/enums";
 import { CategoryHero } from "~/components/category-hero";
 import { CategoriesNavbar } from "~/components/home/categories-navbar";
+import { Recipes } from "~/components/recipes";
+import { api } from "~/trpc/server";
 
 interface MainsPageProps {
   params: Promise<{ category: string }>;
 }
 
+export const categoryMapping = {
+  mains: Category.MAIN_COURSE,
+  desserts: Category.DESSERT,
+  drinks: Category.DRINK,
+  sides: Category.SIDE_DISH,
+  everything: undefined,
+};
+
 export default async function CategoryPage({ params }: MainsPageProps) {
   const { category } = await params;
+
+  void api.recipes.getAll.prefetch({
+    category: categoryMapping[category as keyof typeof categoryMapping],
+    orderBy: "createdAt",
+    skip: 0,
+  });
 
   return (
     <>
       <CategoriesNavbar currentCategory={category} />
       <CategoryHero currentCategory={category} />
-      <div className="grid grid-cols-2 gap-5 p-10 md:grid-cols-3 xl:grid-cols-4">
-        {Array(10)
-          .fill(0)
-          .map((_, i) => (
-            <div key={i} className="mb-4 h-60 rounded-sm bg-gray-200" />
-          ))}
-      </div>
+
+      <Recipes
+        categoryPage={categoryMapping[category as keyof typeof categoryMapping]}
+        isEditable={false}
+      />
     </>
   );
 }

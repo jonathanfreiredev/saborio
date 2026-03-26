@@ -160,6 +160,8 @@ export const RecipeScalarFieldEnum = {
   imageUrl: 'imageUrl',
   defaultServings: 'defaultServings',
   likesCount: 'likesCount',
+  difficulty: 'difficulty',
+  category: 'category',
   preparationTime: 'preparationTime',
   cookingTime: 'cookingTime',
   restingTime: 'restingTime',

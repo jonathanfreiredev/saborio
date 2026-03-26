@@ -1,4 +1,4 @@
-import { Unit } from "generated/prisma/enums";
+import { Category, Difficulty, Unit } from "generated/prisma/enums";
 import z from "zod";
 
 const intSchema = z.int("It must be a positive number");
@@ -6,7 +6,14 @@ const intSchema = z.int("It must be a positive number");
 export const recipeSchema = z.object({
   title: z.string().min(1, "Title is required").trim(),
   description: z.string().trim(),
-  imageUrl: z.url("Image URL must be a valid URL").trim().nullable(),
+  category: z.enum(Category),
+  difficulty: z.enum(Difficulty),
+  image: z
+    .object({
+      file: z.instanceof(File),
+      preview: z.url("Preview must be a valid URL").trim(),
+    })
+    .nullable(),
   defaultServings: z
     .int("It must be a positive number")
     .min(1, "It must be at least 1"),
@@ -40,6 +47,12 @@ export const recipeStepsSchema = z.object({
         description: z.string().trim().min(1, "Step description is required"),
         order: z.int(),
         imageUrl: z.url("Step image URL must be a valid URL").trim().nullable(),
+        image: z
+          .object({
+            file: z.instanceof(File),
+            preview: z.url("Preview must be a valid URL").trim(),
+          })
+          .nullable(),
       }),
     )
     .min(1, "At least one step is required"),
