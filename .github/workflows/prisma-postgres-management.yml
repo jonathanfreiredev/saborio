@@ -2,6 +2,8 @@ name: Prisma Migrate on Push
 
 on:
   push:
+    paths:
+      - prisma/migrations/**
     branches:
       - main
 
@@ -24,10 +26,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Set environment variables
-        run: |
-          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> $GITHUB_ENV
-          echo "NODE_ENV=production" >> $GITHUB_ENV
-
       - name: Apply Prisma migrations
-        run: pnpm prisma migrate deploy
+        run: pnpm dlx prisma migrate deploy
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          NODE_ENV: production
