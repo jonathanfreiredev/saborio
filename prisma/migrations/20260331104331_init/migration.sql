@@ -166,7 +166,7 @@ CREATE TABLE "cookbook" (
     "name" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "authorId" TEXT,
+    "authorId" TEXT NOT NULL,
 
     CONSTRAINT "cookbook_pkey" PRIMARY KEY ("id")
 );
@@ -242,7 +242,7 @@ ALTER TABLE "recipe_like" ADD CONSTRAINT "recipe_like_userId_fkey" FOREIGN KEY (
 ALTER TABLE "recipe_like" ADD CONSTRAINT "recipe_like_recipeId_fkey" FOREIGN KEY ("recipeId") REFERENCES "recipe"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "cookbook" ADD CONSTRAINT "cookbook_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "user"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "cookbook" ADD CONSTRAINT "cookbook_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "cookbook_recipe" ADD CONSTRAINT "cookbook_recipe_cookbookId_fkey" FOREIGN KEY ("cookbookId") REFERENCES "cookbook"("id") ON DELETE CASCADE ON UPDATE CASCADE;
