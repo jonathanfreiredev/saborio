@@ -1,6 +1,7 @@
 "use client";
 
 import { useChat } from "@ai-sdk/react";
+import { createId } from "@paralleldrive/cuid2";
 import {
   DefaultChatTransport,
   lastAssistantMessageIsCompleteWithApprovalResponses,
@@ -9,27 +10,29 @@ import {
   ArrowDownIcon,
   ArrowUpIcon,
   NotepadTextIcon,
-  PaperclipIcon,
   SparklesIcon,
   SquareIcon,
   Trash2Icon,
+  XIcon,
 } from "lucide-react";
-import { useEffect, useState, useRef } from "react";
+import { motion } from "motion/react";
+import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "~/hooks/use-media-query";
+import type { MyAgentUIMessage } from "~/lib/agent";
 import { api } from "~/trpc/react";
+import type { ImageWithPreview } from "../image-uploader/image-upload";
 import { Button } from "../ui/button";
 import {
   Drawer,
   DrawerContent,
+  DrawerDescription,
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
-  DrawerDescription,
 } from "../ui/drawer";
-import type { MyAgentUIMessage } from "~/lib/agent";
-import { useRouter } from "next/navigation";
-import { createId } from "@paralleldrive/cuid2";
-import { motion } from "motion/react";
+import { AttachImageInput } from "./attach-image-input";
+import Image from "next/image";
 
 interface AIAgentChatProps {
   userId: string;
@@ -42,6 +45,9 @@ export default function AIAgentChat({
   chatId,
   messages: savedMessages,
 }: AIAgentChatProps) {
+  const [attachedImage, setAttachedImage] = useState<ImageWithPreview | null>(
+    null,
+  );
   const [isAtBottom, setIsAtBottom] = useState(true);
   const [opened, setOpened] = useState(false);
   const [input, setInput] = useState("");
@@ -54,7 +60,6 @@ export default function AIAgentChat({
   const router = useRouter();
 
   const {
-    id,
     messages,
     status,
     sendMessage,
@@ -133,7 +138,33 @@ export default function AIAgentChat({
     return () => clearTimeout(timeout);
   }, [opened]);
 
-  console.log({ id, messages });
+  const handleSendMessage = async (text: string) => {
+    let imageUrl: string | null = null;
+
+    if (attachedImage && attachedImage.preview.startsWith("blob:")) {
+      const formData = new FormData();
+      formData.append("file", attachedImage.file);
+
+      const response = await fetch("/api/images/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        console.error("Image upload failed");
+        return;
+      }
+
+      const resImage: { url: string } = await response.json();
+
+      imageUrl = resImage.url;
+    }
+
+    sendMessage({
+      text,
+    });
+    setAttachedImage(null);
+  };
 
   return (
     <>
@@ -326,11 +357,21 @@ export default function AIAgentChat({
                                         </p>
                                         <Button
                                           variant="outline"
-                                          onClick={() =>
-                                            router.push(
-                                              `/recipes/${part.output.recipe.slug}`,
-                                            )
-                                          }
+                                          onClick={() => {
+                                            if (
+                                              window.location.pathname ===
+                                              `/recipes/${part.output.recipe.slug}`
+                                            ) {
+                                              // If we're already on the recipe page, just refresh the data
+                                              router.refresh();
+                                            } else {
+                                              router.push(
+                                                `/recipes/${part.output.recipe.slug}`,
+                                              );
+                                            }
+
+                                            setOpened(false);
+                                          }}
                                         >
                                           <NotepadTextIcon /> View Recipe
                                         </Button>
@@ -390,6 +431,27 @@ export default function AIAgentChat({
                   </Button>
                 </motion.div>
               )}
+
+              {attachedImage && (
+                <div className="absolute bottom-1 z-100 h-32 w-32 overflow-hidden rounded-sm bg-gray-100 shadow-lg shadow-gray-500/50">
+                  <div className="relative h-full w-full">
+                    <Button
+                      variant="default"
+                      size="icon"
+                      className="absolute top-1 right-1 z-10 rounded-full"
+                      onClick={() => setAttachedImage(null)}
+                    >
+                      <XIcon size="16" />
+                    </Button>
+                    <Image
+                      src={attachedImage.preview}
+                      alt="Attached image preview"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                </div>
+              )}
             </div>
 
             <DrawerFooter>
@@ -408,13 +470,11 @@ export default function AIAgentChat({
                     onChange={(e) => setInput(e.currentTarget.value)}
                   />
                   <div className="flex items-center justify-between">
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="rounded-full"
-                    >
-                      <PaperclipIcon />
-                    </Button>
+                    <AttachImageInput
+                      value={attachedImage}
+                      onChange={setAttachedImage}
+                    />
+
                     {status === "streaming" || status === "submitted" ? (
                       <Button
                         variant="default"

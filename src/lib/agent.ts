@@ -2,18 +2,20 @@ import { openai } from "@ai-sdk/openai";
 import { stepCountIs, ToolLoopAgent, type InferAgentUIMessage } from "ai";
 import { toolCreateRecipe } from "./agent-tools/tool-create-recipe";
 import { toolGetTags } from "./agent-tools/tool-get-tags";
-import { toolGetAllRecipesByUser } from "./agent-tools/tool-get-all-recipes-by-user";
+import { toolGetAllCreatedRecipesByUser } from "./agent-tools/tool-get-all-recipes-by-user";
 import { toolGetOneRecipe } from "./agent-tools/tool-get-one-recipe";
 import { toolUpdateRecipe } from "./agent-tools/tool-update-recipe";
 import { toolGetAllFavouriteRecipesByUser } from "./agent-tools/tool-get-all-favourite-recipes-by-user";
 import { toolGenerateRecipeImage } from "./agent-tools/tool-generate-recipe-image";
+import { toolGetAllRecipes } from "./agent-tools/tool-get-all-recipes";
 
 export const agent = new ToolLoopAgent({
   model: openai("gpt-4o-mini"),
   tools: {
     getTags: toolGetTags,
-    getAllRecipesByUser: toolGetAllRecipesByUser,
+    getAllRecipesByUser: toolGetAllCreatedRecipesByUser,
     getAllFavouriteRecipesByUser: toolGetAllFavouriteRecipesByUser,
+    getAllRecipes: toolGetAllRecipes,
     generateRecipeImage: toolGenerateRecipeImage,
     getOneRecipe: toolGetOneRecipe,
     createRecipe: toolCreateRecipe,
