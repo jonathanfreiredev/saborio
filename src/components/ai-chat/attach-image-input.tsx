@@ -18,10 +18,15 @@ import {
 interface AttachImageInputProps {
   value: ImageWithPreview | null;
   onChange: (image: ImageWithPreview | null) => void;
+  disabled?: boolean;
 }
 
 // Allows to attach an image to the ai assistant chat.
-export function AttachImageInput({ value, onChange }: AttachImageInputProps) {
+export function AttachImageInput({
+  value,
+  onChange,
+  disabled,
+}: AttachImageInputProps) {
   const [imageDialogOpen, setImageDialogOpen] = useState(false);
 
   return (
@@ -31,6 +36,7 @@ export function AttachImageInput({ value, onChange }: AttachImageInputProps) {
           type="button"
           variant="ghost"
           size="icon"
+          disabled={disabled}
           className="rounded-full"
         >
           <PaperclipIcon />
