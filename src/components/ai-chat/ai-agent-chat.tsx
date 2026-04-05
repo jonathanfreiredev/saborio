@@ -33,6 +33,7 @@ import {
 } from "../ui/drawer";
 import { AttachImageInput } from "./attach-image-input";
 import Image from "next/image";
+import { Textarea } from "../ui/textarea";
 
 const ThinkingIndicator = ({ text }: { text: string }) => (
   <motion.div
@@ -228,10 +229,11 @@ export default function AIAgentChat({
               handleSendMessage(input);
             }}
           >
-            <div className="flex gap-2 rounded-lg border border-zinc-300 bg-white/30 px-4 py-2 shadow-xl dark:border-zinc-800 dark:bg-zinc-900">
-              <input
-                className="w-full py-2 outline-none"
+            <div className="flex gap-2 rounded-lg border border-zinc-300 bg-white/40 px-4 py-2 shadow-xl dark:border-zinc-800 dark:bg-zinc-900">
+              <Textarea
+                className="w-full resize-none border-none py-2 focus-visible:ring-0"
                 value={input}
+                rows={1}
                 placeholder="Say something..."
                 disabled={uploadingImage}
                 onFocus={() => {
@@ -565,14 +567,15 @@ export default function AIAgentChat({
                     handleSendMessage(input);
                   }}
                 >
-                  <input
-                    className="w-full py-2 outline-none"
+                  <Textarea
+                    className="w-full resize-none border-none py-2 focus-visible:ring-0"
                     value={input}
+                    rows={1}
                     placeholder="Say something..."
                     disabled={uploadingImage || messages.length > MAX_MESSAGES}
                     onChange={(e) => setInput(e.currentTarget.value)}
                   />
-                  <div className="flex items-center justify-between">
+                  <div className="mt-1 flex items-center justify-between">
                     <AttachImageInput
                       value={attachedImage}
                       onChange={setAttachedImage}

@@ -1,8 +1,10 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { Input } from "../ui/input";
+import { processImage } from "~/lib/process-image";
+import { Spinner } from "../ui/spinner";
 
 export type ImageWithPreview = {
   file: File;
@@ -19,43 +21,67 @@ export function ImageUpload({
   maxImages = 1,
   ...props
 }: React.ComponentProps<"input"> & ImageUploadProps) {
+  const [isLoading, setIsLoading] = useState(false);
   const onDrop = useCallback(
-    (acceptedFiles: File[]) => {
+    async (acceptedFiles: File[]) => {
+      setIsLoading(true);
       if (acceptedFiles.length === 0) return;
 
-      const newImages: ImageWithPreview[] = acceptedFiles.map((file) => ({
+      const processedFiles = await Promise.all(
+        acceptedFiles.map(async (file) => {
+          try {
+            return await processImage(file);
+          } catch (e) {
+            console.error("Error redimensionando:", e);
+            return file;
+          }
+        }),
+      );
+
+      const newImages: ImageWithPreview[] = processedFiles.map((file) => ({
         file,
         preview: URL.createObjectURL(file),
       }));
 
       handleImages(newImages);
+      setIsLoading(false);
     },
-    [handleImages, maxImages],
+    [handleImages],
   );
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
-    accept: { "image/*": [] },
+    accept: {
+      "image/jpeg": [],
+      "image/png": [],
+      "image/webp": [],
+      "image/heic": [],
+      "image/heif": [],
+    },
     multiple: maxImages > 1,
     maxFiles: maxImages,
     maxSize: 10 * 1024 * 1024, // 10MB
+    disabled: isLoading,
   });
 
   return (
     <div
       {...getRootProps()}
-      className="border-muted text-muted-foreground hover:bg-muted/50 focus:ring-ring data-[state=open]:bg-muted flex h-32 w-full cursor-pointer items-center justify-center rounded-md border-3 border-dashed bg-transparent p-6 text-sm transition-colors focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed"
+      className="border-muted text-muted-foreground hover:bg-muted/50 focus:ring-ring data-[state=open]:bg-muted relative flex h-32 w-full cursor-pointer items-center justify-center rounded-md border-3 border-dashed bg-transparent p-6 text-sm transition-colors focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed"
     >
       <Input
         {...props}
         {...getInputProps()}
         type="file"
         max={maxImages}
-        accept="image/*"
+        accept="image/jpeg, image/png, image/webp, image/heic, image/heif"
         multiple={maxImages > 1}
         size={10 * 1024 * 1024}
       />
       <p>Drag 'n' drop an image here, or click to select an image</p>
+      <Spinner
+        className={`absolute ${isLoading ? "block" : "hidden"} size-10`}
+      />
     </div>
   );
 }

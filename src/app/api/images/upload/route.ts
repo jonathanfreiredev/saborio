@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { uploadToCloudinary } from "~/lib/cloudinary";
-import sharp from "sharp";
 
 export async function POST(req: NextRequest) {
   const formData = await req.formData();
@@ -13,9 +12,7 @@ export async function POST(req: NextRequest) {
   const bytes = await file.arrayBuffer();
   const buffer = Buffer.from(bytes);
 
-  const webpBuffer = await sharp(buffer).webp({ quality: 80 }).toBuffer();
-
-  const result = await uploadToCloudinary(webpBuffer);
+  const result = await uploadToCloudinary(buffer);
 
   return NextResponse.json({
     url: result.secure_url,
