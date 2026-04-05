@@ -47,8 +47,10 @@ export async function generateAndUpload(
   title: string,
   styleHint?: string,
 ): Promise<string> {
+  const model =
+    process.env.NODE_ENV === "production" ? "flux-2-pro" : "flux-2-klein-9b";
   const { image } = await generateImage({
-    model: blackForestLabs.image("flux-dev"),
+    model: blackForestLabs.image(model),
     prompt: `Professional gourmet food photography of ${title}${
       styleHint ? `, ${styleHint} style` : ""
     }, high resolution, 8k, appetizing lighting, macro lens, elegant plating.`,
