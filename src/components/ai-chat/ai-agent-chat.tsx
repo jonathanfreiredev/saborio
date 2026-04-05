@@ -311,7 +311,7 @@ export default function AIAgentChat({
               recipes.
             </DrawerDescription>
 
-            <div className="relative flex min-h-[30vh] flex-col px-4">
+            <div className="relative flex min-h-40 flex-col px-4">
               <div
                 ref={containerRef}
                 className="no-scrollbar flex h-full flex-col gap-4 overflow-y-auto"
