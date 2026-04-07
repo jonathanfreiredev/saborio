@@ -484,6 +484,24 @@ export default function AIAgentChat({
                                       );
                                   }
                                 }
+                                case "tool-generateRecipeImage": {
+                                  if (part.state === "output-available") {
+                                    return (
+                                      <div key={part.toolCallId}>
+                                        {part.output.imageUrl && (
+                                          <div className="relative mb-5 h-32 w-full overflow-hidden rounded-sm bg-gray-100 shadow-lg shadow-gray-500/50">
+                                            <Image
+                                              src={part.output.imageUrl}
+                                              alt={part.input.recipeTitle}
+                                              fill
+                                              className="object-cover"
+                                            />
+                                          </div>
+                                        )}
+                                      </div>
+                                    );
+                                  }
+                                }
                               }
                             })}
                           </div>
