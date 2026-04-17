@@ -20,13 +20,13 @@ const PRICES = {
   output: 0.6, // $0.60 por 1M tokens
 };
 
-export const model = wrapLanguageModel({
-  model: openai("gpt-4o-mini"),
-  middleware: devToolsMiddleware(),
-});
+// export const model = wrapLanguageModel({
+//   model: openai("gpt-4o-mini"),
+//   middleware: devToolsMiddleware(),
+// });
 
 export const agent = new ToolLoopAgent({
-  model,
+  model: openai("gpt-4o-mini"),
   tools: {
     getTags: toolGetTags,
     getAllRecipesByUser: toolGetAllCreatedRecipesByUser,
